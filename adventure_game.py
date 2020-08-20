@@ -23,22 +23,24 @@
 
 
 # A Knight's End
+
+# Global Variables
 import time
 import random
 gold = 0
 health = 25
 Diablos = 300
 
-
+# To test how text would print
 def test():
     print_pause("test")
 
-
+# function that determines text speed
 def print_pause(message_to_print):
     print(message_to_print)
     time.sleep(2)
 
-
+# function that is made for any decision about gold in the game
 def grab_gold(goldamount):
     choice = input("Do you wish to grab the gold?\n").lower()
     if "yes" in choice:
@@ -53,7 +55,8 @@ def grab_gold(goldamount):
         print_pause("Yes or No?")
         grab_gold(goldamount)
 
-
+# function for final boss battle that changes message depending
+# on health of final boss and what action he might take
 def Diablos_health(damage, inventory):
     global Diablos
     Diablos += damage
@@ -73,7 +76,8 @@ def Diablos_health(damage, inventory):
     else:
         print_pause("Diablos has been slain.")
 
-
+# function for final boss battle that gives opportunity to do 
+# extra damage at risk of losing health
 def risk(inventory):
     global Diablos
     risk = input("Do you want to make a risky move to deal extra\n"
@@ -91,7 +95,8 @@ def risk(inventory):
         print_pause("You block the attack perfectly with your\n"
                     "Shield of the Round Table.")
 
-
+# function for change in hitpoints for the player with an option
+# to use an item to heal
 def health_change(hitpoints, inventory):
     global health
     health += hitpoints
@@ -133,7 +138,7 @@ def health_change(hitpoints, inventory):
             print_pause("Oh dear you have died. Game Over.\n")
             play_again(inventory)
 
-
+# function for intro of game
 def intro(inventory):
     print_pause("Today starts like any other day.\n"
                 "The world has been at peace\n"
@@ -163,7 +168,8 @@ def intro(inventory):
     print_pause("To the South is a Mountain Village where you\n"
                 "can buy some good to help you on your adventure.\n")
 
-
+# function for final area of game that changes dialogue depending
+# on what items you have acquired while playing
 def The_End(inventory):
     global Diablos
     global health
@@ -371,7 +377,8 @@ def The_End(inventory):
         print_pause(". . . . . . . . . . . . . . . . . . . . . . . . . . .")
         play_again(inventory)
 
-
+# function for a "bad" ending if player decided to rush straight
+# to end of game without getting any items or exploring first
 def fake_intro(inventory):
     if "amulet" in inventory:
         print_pause("Today starts like any other day\n"
@@ -447,7 +454,8 @@ def fake_intro(inventory):
         print_pause(". . . . . . . . . . . . . . . . . . . . . . . . . . .")
         play_again(inventory)
 
-
+# function that asks players if they would like to play again.
+# Also resets global variables.
 def play_again(inventory):
     play_again = input("Do you wish to play again?\n").lower()
     if "yes" in play_again:
@@ -467,7 +475,8 @@ def play_again(inventory):
         print_pause("Sorry I do not understand, but we'll restart for you.")
         play_game(inventory)
 
-
+# function for player to choose what direction to walk toward
+# in the story, also has secret areas if player has a special item
 def walk_toward(inventory):
     print_pause("What direction would you like to travel to?\n")
     if "knight's key" in inventory:
@@ -523,7 +532,8 @@ def walk_toward(inventory):
             print_pause("You stand there confused.\n")
             walk_toward(inventory)
 
-
+# function for a shop at one of the places that the player can visit.
+# Can tell how much gold player has and what they can buy
 def shop(inventory):
     global gold
     shop = input("Do you wish to visit the village shop?\n").lower()
@@ -656,7 +666,8 @@ def shop(inventory):
                     "your mind lost in the thought of a shop.\n")
         mountain_village(inventory)
 
-
+# function for a secret boss that player needs an item to reach. 
+# Dialogue changes depending on what weapon player has
 def secret_boss(inventory):
     global health
     print_pause("The knight as a faint glow around him \n"
@@ -723,7 +734,8 @@ def secret_boss(inventory):
         print_pause("You wake up at home in your bed.")
         inventory.append("knight's key")
 
-
+# function that was meant to be a riddle, but broke and was repurpose 
+# to be a "jump scare" for the player during a "bad" ending
 def riddle_game(inventory):
     s = "You're Stuck Here Forever."
     index = len(s)
@@ -732,7 +744,8 @@ def riddle_game(inventory):
         index -= 1
         print(s[:index])
 
-
+# function for if the player walks north. Dialogue changes depending
+# on what items the players had
 def north_forest(inventory):
     global health
     print_pause("You step into the forest.\n"
@@ -797,7 +810,9 @@ def north_forest(inventory):
             break
     walk_toward(inventory)
 
-
+# function for if player goes east and dialogue changes depending on 
+# how many visits and what they chose to do in the cave prior. 
+# Can also unlock a job function if the player brings the snake food
 def snake_cave(inventory):
     global gold
     global health
@@ -953,7 +968,8 @@ def snake_cave(inventory):
             print_pause("You wake up in your home.")
     walk_toward(inventory)
 
-
+# function for if player goes west, player either needs item flute to unlock
+# or they could play a game of chance to dodge the lightning
 def battlefield(inventory):
     global health
     print_pause("You walk along the charred path toward an old battlefield\n"
@@ -1040,7 +1056,8 @@ def battlefield(inventory):
             walk_toward(inventory)
     walk_toward(inventory)
 
-
+# function for if player goes south. Gives player special item upon visit
+# player can also decide to shop for items while at the village
 def mountain_village(inventory):
     if "candy apple" in inventory:
         print_pause("You hike up the mountain to the nearby village again\n"
@@ -1064,7 +1081,8 @@ def mountain_village(inventory):
         shop(inventory)
     walk_toward(inventory)
 
-
+# function for secret area that is unlocked after beating the secret boss
+# gives the best weapon and armor in the game
 def northeast_house(inventory):
     print_pause("You follow where the spirit pointed to and found this\n"
                 "abandoned house out in the countryside\n")
@@ -1104,7 +1122,7 @@ def northeast_house(inventory):
                 "so he can be at peace.\n")
     walk_toward(inventory)
 
-
+# function to play game
 def play_game():
     inventory = []
     intro(inventory)
